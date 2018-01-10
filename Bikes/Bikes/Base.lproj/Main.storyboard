@@ -183,6 +183,7 @@
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vw5-NW-ZpL">
                                             <rect key="frame" x="10" y="240" width="355" height="44"/>
+                                            <color key="backgroundColor" red="1" green="0.59051108360000004" blue="0.020016111430000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="44" id="CA9-Cm-rug"/>
                                             </constraints>

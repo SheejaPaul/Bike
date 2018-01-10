@@ -42,34 +42,35 @@ class ProductDetailTableViewController: UITableViewController {
         return 3
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProductImageCell", for: indexPath) as! ProductImageCell
-            
             // Configure the cell...
-            
+            let imageUrl = URL(string: (bike?.thumbnailImageLink)!)
+            NetworkController().getImageFromURL(url: imageUrl) { (image) in
+                if let image = image {
+                    DispatchQueue.main.async {
+                        cell.bikeImageView.image = image
+                    }
+                }
+            }
             return cell
         } else if indexPath.row == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath) as! DetailCell
             // Configure the cell...
             cell.brandNameLabel.text = "Brand: " + (bike?.brand)!
             cell.priceLabel.text = "Price: " + (bike?.displayPrice.priceDisplay.price)!
-            cell.ratingLabel.text = "Rating: " + String(describing: bike?.rating)
-            
-            
+            cell.ratingLabel.text = "Rating: " + String(describing: (bike?.rating)!)
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionCell", for: indexPath) as! DescriptionCell
             
             // Configure the cell...
             cell.descriptionTextView.text = bike?.benefit
-            
             return cell
         }
     }
     
-
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
