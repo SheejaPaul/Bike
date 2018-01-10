@@ -8,12 +8,10 @@
 
 import UIKit
 
-class BikesTableViewController: UITableViewController,UISearchResultsUpdating,UISearchBarDelegate {
+class BikesTableViewController: UITableViewController {
     
     @IBOutlet weak var categorySegmentedControl: UISegmentedControl!
-    let searchCotroller = UISearchController(searchResultsController: nil)
     var bikes = [Bike]()
-    let bikeBrands = ["Co-op Cycles", "Cannondale", "Salsa", "Diamondback", "GHOST"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,14 +25,6 @@ class BikesTableViewController: UITableViewController,UISearchResultsUpdating,UI
         // Setup Navigation Bar
         navigationController?.navigationBar.prefersLargeTitles = true
         self.title = "Bikes"
-        
-        // Setup Search Bar
-        navigationItem.searchController = searchCotroller
-        searchCotroller.searchResultsUpdater = self
-        searchCotroller.searchBar.delegate = self
-        
-        searchCotroller.obscuresBackgroundDuringPresentation = false
-        searchCotroller.searchBar.scopeButtonTitles = ["All", "Ghost", "Cannondale"]
         
         FeedController().getBikesFeed(for: nil) { (results) in
             self.bikes = results ?? [Bike]()
@@ -138,15 +128,4 @@ class BikesTableViewController: UITableViewController,UISearchResultsUpdating,UI
         // Pass the selected object to the new view controller.
     }
     */
-    
-    // MARK: - Search Results Updater Delegate
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let searchText = searchController.searchBar.text else { return }
-        
-    }
-    
-    // MARK: - Search Bar Delegate
-    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        print(selectedScope)
-    }
 }
