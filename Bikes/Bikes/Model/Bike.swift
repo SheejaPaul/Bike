@@ -45,6 +45,6 @@ struct PriceDisplay {
     var price: String
     
     init(json: [String: Any]) {
-        self.price = json["price"] as? String ?? ""
+        self.price = json["price"] as? String ?? "Not Available"
     }
 }

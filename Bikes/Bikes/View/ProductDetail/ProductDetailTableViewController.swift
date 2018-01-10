@@ -1,18 +1,16 @@
 //
-//  BikesTableViewController.swift
+//  ProductDetailTableViewController.swift
 //  Bikes
 //
-//  Created by Admin on 1/7/18.
+//  Created by Admin on 1/9/18.
 //  Copyright © 2018 Admin. All rights reserved.
 //
 
 import UIKit
 
-class BikesTableViewController: UITableViewController {
+class ProductDetailTableViewController: UITableViewController {
+    var bike: Bike?
     
-    @IBOutlet weak var categorySegmentedControl: UISegmentedControl!
-    var bikes = [Bike]()
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -23,15 +21,8 @@ class BikesTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         // Setup Navigation Bar
-        navigationController?.navigationBar.prefersLargeTitles = true
-        self.title = "Bikes"
-        
-        FeedController().getBikesFeed(for: nil) { (results) in
-            self.bikes = results ?? [Bike]()
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
+        self.title = bike?.cleanTitle
+        navigationController?.navigationBar.prefersLargeTitles = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,35 +33,42 @@ class BikesTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(bikes.count)
-        return bikes.count
+        // #warning Incomplete implementation, return the number of rows
+        return 3
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ItemTableViewCell
-
-        // Configure the cell...
-        cell.titleLabel.text = bikes[indexPath.row].cleanTitle
-        cell.brandLabel.text = "Brand: " + bikes[indexPath.row].brand
-        cell.ratingLabel.text = "Rating: " + String(bikes[indexPath.row].rating)
-        cell.priceLabel.text = "Price: " +  bikes[indexPath.row].displayPrice.priceDisplay.price
-        
-        let imageUrl = URL(string: bikes[indexPath.row].thumbnailImageLink)
-        NetworkController().getImageFromURL(url: imageUrl) { (image) in
-            if let image = image {
-                DispatchQueue.main.async {
-                    cell.itemImageView.image = image
-                }
-            }
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ProductImageCell", for: indexPath) as! ProductImageCell
+            
+            // Configure the cell...
+            
+            return cell
+        } else if indexPath.row == 1 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DetailCell", for: indexPath) as! DetailCell
+            // Configure the cell...
+            cell.brandNameLabel.text = "Brand: " + (bike?.brand)!
+            cell.priceLabel.text = "Price: " + (bike?.displayPrice.priceDisplay.price)!
+            cell.ratingLabel.text = "Rating: " + String(describing: bike?.rating)
+            
+            
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionCell", for: indexPath) as! DescriptionCell
+            
+            // Configure the cell...
+            cell.descriptionTextView.text = bike?.benefit
+            
+            return cell
         }
-
-        return cell
     }
+    
 
     /*
     // Override to support conditional editing of the table view.
@@ -106,31 +104,15 @@ class BikesTableViewController: UITableViewController {
         return true
     }
     */
-    
-    @IBAction func didSelectCategory(_ sender: UISegmentedControl) {
-        let feedController = FeedController()
-        let category = feedController.categoryNameAtIndex(sender.selectedSegmentIndex)
-        FeedController().getBikesFeed(for: category) { (results) in
-            self.bikes = results ?? [Bike]()
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
-    }
-    
 
-    
+    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
-        guard let productDetailViewController = segue.destination as? ProductDetailTableViewController else { return }
         // Pass the selected object to the new view controller.
-        guard let cell = sender as? ItemTableViewCell else { return }
-        guard let indexPath = tableView.indexPath(for: cell) else { return }
-        let bike = bikes[indexPath.row]
-        productDetailViewController.bike = bike
     }
-    
+    */
+
 }
