@@ -10,8 +10,10 @@ import UIKit
 
 class BikesTableViewController: UITableViewController,UISearchResultsUpdating,UISearchBarDelegate {
     
+    @IBOutlet weak var categorySegmentedControl: UISegmentedControl!
     let searchCotroller = UISearchController(searchResultsController: nil)
     var bikes = [Bike]()
+    let bikeBrands = ["Co-op Cycles", "Cannondale", "Salsa", "Diamondback", "GHOST"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +36,7 @@ class BikesTableViewController: UITableViewController,UISearchResultsUpdating,UI
         searchCotroller.obscuresBackgroundDuringPresentation = false
         searchCotroller.searchBar.scopeButtonTitles = ["All", "Ghost", "Cannondale"]
         
-        FeedController().getBikesFeed { (results) in
+        FeedController().getBikesFeed(for: nil) { (results) in
             self.bikes = results ?? [Bike]()
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -114,6 +116,18 @@ class BikesTableViewController: UITableViewController,UISearchResultsUpdating,UI
         return true
     }
     */
+    
+    @IBAction func didSelectCategory(_ sender: UISegmentedControl) {
+        let feedController = FeedController()
+        let category = feedController.categoryNameAtIndex(sender.selectedSegmentIndex)
+        FeedController().getBikesFeed(for: category) { (results) in
+            self.bikes = results ?? [Bike]()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
 
     /*
     // MARK: - Navigation
@@ -127,7 +141,8 @@ class BikesTableViewController: UITableViewController,UISearchResultsUpdating,UI
     
     // MARK: - Search Results Updater Delegate
     func updateSearchResults(for searchController: UISearchController) {
-        print(searchCotroller.searchBar.text)
+        guard let searchText = searchController.searchBar.text else { return }
+        
     }
     
     // MARK: - Search Bar Delegate

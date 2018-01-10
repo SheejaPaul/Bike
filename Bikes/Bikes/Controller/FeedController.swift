@@ -7,10 +7,26 @@
 //
 
 import Foundation
+
+enum Category: Int {
+    case all = 0
+    case mountain
+    case hybrid
+    case road
+    case kids
+}
+
+let categories = ["mountain-bikes", "kids-bikes", "hybrid-bikes", "road-bikes"]
+
 class FeedController {
-    func getBikesFeed(_ completion: @escaping([Bike]?) -> ()) {
+    func getBikesFeed(for category: String?, with completion: @escaping([Bike]?) -> ()) {
         
-        let urlString = "https://www.rei.com/rest/search/results?version=g2&ir=category%3Acycle&origin=web&r=category%3Acycling&page=1&sx=7XZJTTUoM5GICWMFt%2FOmYw%3D%3D&pagesize=90"
+        var urlString = "https://www.rei.com/rest/search/results?q=bikes&page=1&ir=q:bikes&sx=g2NNeBSFGsRmop8Y0pR8Jw==&pagesize=30"
+        
+        if let category = category, categories.contains(category) {
+            urlString.append("&r=category:\(category)")
+        }
+        
         guard let feedUrl = URL(string: urlString) else { return }
         NetworkController().getNetworkResponse(url: feedUrl) { (jsonObject) in
             if let jsonObject = jsonObject {
@@ -25,6 +41,22 @@ class FeedController {
             } else {
                 completion(nil)
             }
+        }
+    }
+    
+    func categoryNameAtIndex(_ index: Int) -> String {
+        let category = Category(rawValue: index) ?? .all
+        switch category {
+        case .mountain:
+            return "mountain-bikes"
+        case .hybrid:
+            return "hybrid-bikes"
+        case .road:
+            return "road-bikes"
+        case .kids:
+            return "kids-bikes"
+        default:
+            return ""
         }
     }
 }

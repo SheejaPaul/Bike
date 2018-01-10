@@ -83,22 +83,22 @@
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
-                                            <exclude reference="M48-Su-D6V"/>
                                             <exclude reference="9JM-ug-OuS"/>
                                             <exclude reference="ZmW-0R-o3a"/>
                                             <exclude reference="edE-2w-6g9"/>
+                                            <exclude reference="M48-Su-D6V"/>
                                         </mask>
                                     </variation>
                                     <variation key="heightClass=compact">
                                         <mask key="constraints">
-                                            <include reference="M48-Su-D6V"/>
-                                            <exclude reference="SOH-IX-4ev"/>
-                                            <exclude reference="rhL-YZ-Xjd"/>
                                             <exclude reference="4Ms-GD-fXX"/>
                                             <include reference="9JM-ug-OuS"/>
                                             <exclude reference="BIG-3U-bIY"/>
                                             <include reference="ZmW-0R-o3a"/>
                                             <include reference="edE-2w-6g9"/>
+                                            <include reference="M48-Su-D6V"/>
+                                            <exclude reference="SOH-IX-4ev"/>
+                                            <exclude reference="rhL-YZ-Xjd"/>
                                         </mask>
                                     </variation>
                                 </tableViewCellContentView>
@@ -117,7 +117,26 @@
                             <outlet property="delegate" destination="nh3-Xc-FVH" id="hpH-9X-sSb"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="4nb-Vt-KEF"/>
+                    <navigationItem key="navigationItem" id="4nb-Vt-KEF">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="N2D-WD-n6s">
+                            <rect key="frame" x="8" y="7" width="359" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="All"/>
+                                <segment title="Mountain"/>
+                                <segment title="Hybrid"/>
+                                <segment title="Road"/>
+                                <segment title="Kids"/>
+                            </segments>
+                            <connections>
+                                <action selector="didSelectCategory:" destination="nh3-Xc-FVH" eventType="valueChanged" id="55r-xl-s90"/>
+                            </connections>
+                        </segmentedControl>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="categorySegmentedControl" destination="N2D-WD-n6s" id="ACa-DI-AsN"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S2r-PE-nLB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

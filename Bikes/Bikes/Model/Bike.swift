@@ -8,6 +8,8 @@
 
 import Foundation
 
+let bikeBrand = ["Co-op Cycles", "Cannondale", "Salsa", "Diamondback", "GHOST"]
+
 struct Bike {
     var cleanTitle: String
     var thumbnailImageLink: String
