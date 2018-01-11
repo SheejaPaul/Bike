@@ -55,12 +55,13 @@ class BikesTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ItemTableViewCell
 
         // Configure the cell...
-        cell.titleLabel.text = bikes[indexPath.row].cleanTitle
-        cell.brandLabel.text = "Brand: " + bikes[indexPath.row].brand
-        cell.ratingLabel.text = "Rating: " + String(bikes[indexPath.row].rating)
-        cell.priceLabel.text = "Price: " +  bikes[indexPath.row].displayPrice.priceDisplay.price
+        let bike = bikes[indexPath.row]
+        cell.titleLabel.text = bike.cleanTitle
+        cell.brandLabel.text = "Brand: " + bike.brand
+        cell.ratingLabel.text = "Rating: " + String(bike.rating)
+        cell.priceLabel.text = "Price: " +  bike.displayPrice.priceDisplay.price
         
-        let imageUrl = URL(string: bikes[indexPath.row].thumbnailImageLink)
+        let imageUrl = URL(string: bike.thumbnailImageLink)
         NetworkController().getImageFromURL(url: imageUrl) { (image) in
             if let image = image {
                 DispatchQueue.main.async {
@@ -68,8 +69,27 @@ class BikesTableViewController: UITableViewController {
                 }
             }
         }
-
+        
+        let favouriteImage = FavoritesController.isFavorite(bike) ? #imageLiteral(resourceName: "ico_tab_favorite_filled") : #imageLiteral(resourceName: "ico_tab_favorite")
+    cell.favouriteButton.setImage(favouriteImage.withRenderingMode(.alwaysTemplate), for: .normal)
+        cell.favouriteButton.addTarget(self, action: #selector(favoriteButtonDidTap(_:)), for: .touchUpInside)
+        cell.favouriteButton.tag = indexPath.row
+        
         return cell
+    }
+    
+    @objc func favoriteButtonDidTap(_ sender: UIButton) {
+        if sender.tag != NSNotFound {
+            let bike = bikes[sender.tag]
+            if FavoritesController.isFavorite(bike) {
+                FavoritesController.unmarkFavorite(bike)
+            } else {
+                FavoritesController.markFavorite(bike)
+            }
+            
+            let indexPath = IndexPath(row: sender.tag, section: 0)
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+        }
     }
 
     /*

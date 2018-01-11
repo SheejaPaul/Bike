@@ -9,7 +9,9 @@
 import UIKit
 
 class FavouritesTableViewController: UITableViewController {
-
+    
+    var bike = CacheController.loadFavorites()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -18,6 +20,9 @@ class FavouritesTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        bike = CacheController.loadFavorites()
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,7 +39,7 @@ class FavouritesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 10
+        return (bike?.count)!
     }
 
     

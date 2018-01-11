@@ -24,6 +24,8 @@
 		8483E1712005FA9500F1279A /* ProductImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8483E1702005FA9500F1279A /* ProductImageCell.swift */; };
 		8483E1732005FAE500F1279A /* DetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8483E1722005FAE500F1279A /* DetailCell.swift */; };
 		8483E1752005FB0100F1279A /* DescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8483E1742005FB0100F1279A /* DescriptionCell.swift */; };
+		8483E17720072F7900F1279A /* CacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8483E17620072F7900F1279A /* CacheController.swift */; };
+		8483E17920073CC700F1279A /* FavoritesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8483E17820073CC700F1279A /* FavoritesController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +69,8 @@
 		8483E1702005FA9500F1279A /* ProductImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductImageCell.swift; sourceTree = "<group>"; };
 		8483E1722005FAE500F1279A /* DetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCell.swift; sourceTree = "<group>"; };
 		8483E1742005FB0100F1279A /* DescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionCell.swift; sourceTree = "<group>"; };
+		8483E17620072F7900F1279A /* CacheController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheController.swift; sourceTree = "<group>"; };
+		8483E17820073CC700F1279A /* FavoritesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +176,8 @@
 			children = (
 				8483E1572003452600F1279A /* NetworkController.swift */,
 				8483E1622003641300F1279A /* FeedController.swift */,
+				8483E17620072F7900F1279A /* CacheController.swift */,
+				8483E17820073CC700F1279A /* FavoritesController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -346,7 +352,9 @@
 				8483E1692005E93800F1279A /* FavouritesTableViewController.swift in Sources */,
 				8483E1712005FA9500F1279A /* ProductImageCell.swift in Sources */,
 				8483E1752005FB0100F1279A /* DescriptionCell.swift in Sources */,
+				8483E17720072F7900F1279A /* CacheController.swift in Sources */,
 				8483E127200343A900F1279A /* AppDelegate.swift in Sources */,
+				8483E17920073CC700F1279A /* FavoritesController.swift in Sources */,
 				8483E16B2005F8BC00F1279A /* ProductDetailTableViewController.swift in Sources */,
 				8483E1632003641300F1279A /* FeedController.swift in Sources */,
 			);
